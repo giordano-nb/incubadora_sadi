@@ -27,14 +27,28 @@ class Ui(QtWidgets.QMainWindow):
         super(Ui, self).__init__()
         uic.loadUi('Chocadeira_UI.ui', self)
 
-        self.button = self.findChild(QtWidgets.QPushButton, 'redefinir') # Find the button
-        self.button.clicked.connect(self.redefinirButtonPressed) # Remember to pass the definition/method, not the return value!
-        self.input = self.findChild(QtWidgets.QLineEdit, 'tempRef')
+        self.redefinirButton = self.findChild(QtWidgets.QPushButton, 'redefinir')
+        self.confirmarButton = self.findChild(QtWidgets.QPushButton, 'confirmar')
+
+        self.confirmarButton.clicked.connect(self.confirmarButtonPressed) # Remember to pass the definition/method, not the return value!
+
+        self.tempRefTextBox = self.findChild(QtWidgets.QDoubleSpinBox, 'tempRef')
+        self.fanSpeedTextBox = self.findChild(QtWidgets.QDoubleSpinBox, 'fanSpeed')
+        self.periodoAlertaTimeEdit = self.findChild(QtWidgets.QTimeEdit, 'periodoAlerta')
         self.show()
 
-    def redefinirButtonPressed(self):
-        # This is executed when the button is pressed
-        print('redefinirButtonPressed'+' TempRef: '+self.input.text())
+    def confirmarButtonPressed(self):
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setWindowTitle("Valores digitados")
+        msg.setText("tempRef = {} \nfanSpeed = {} \nperiodoAlerta= {} \n".format(
+                    self.tempRefTextBox.text(), 
+                    self.fanSpeedTextBox.text(), 
+                    self.periodoAlertaTimeEdit.text())
+        )
+
+        msg.exec_()
+
 
 app = QtWidgets.QApplication(sys.argv)
 window = Ui()
