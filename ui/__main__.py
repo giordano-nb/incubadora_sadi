@@ -19,8 +19,7 @@ class Ui(QtWidgets.QMainWindow):
         self.connectarButton = self.findChild(QtWidgets.QPushButton, 'connectarButton')
 
         self.confirmarButton.clicked.connect(self.confirmarButtonPressed)
-
-        self.connectarButton.clicked.connect(self.changeSerialPort)
+        self.connectarButton.clicked.connect(self.connectSerialPort)
         self.redefinirButton.clicked.connect(self.redefinirConfigs)
 
         self.tempRefTextBox = self.findChild(QtWidgets.QDoubleSpinBox, 'tempRef')
@@ -46,12 +45,11 @@ class Ui(QtWidgets.QMainWindow):
         self.threadpool.start(self.updateVals) 
         
     def redefinirConfigs(self) :
-        self.configuredSerial = False
-        time.sleep(1)
-        serialCom.closeSerialCom()
+        pass
 
 
-    def changeSerialPort(self) :
+    def connectSerialPort(self) :
+        self.serialPort.setEnabled(False)
         serialCom.initSerialCom(self.serialPort.currentText())
         time.sleep(1)
         self.configuredSerial = True
