@@ -1,4 +1,6 @@
 import serialCom
+from PyQt5 import QtWidgets, uic
+import sys
 
 # TS:   Temperatura configurada em °C
 # TR:   Temperatura real no momento da leitura em °C
@@ -20,14 +22,32 @@ import serialCom
 # >PI:2.3:5.1\n
 # '''
 
-print(serialCom.getSerialPorts())
+class Ui(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Ui, self).__init__()
+        uic.loadUi('Chocadeira_UI.ui', self)
 
-serialCom.initSerialCom('COM3')
+        self.button = self.findChild(QtWidgets.QPushButton, 'redefinir') # Find the button
+        self.button.clicked.connect(self.redefinirButtonPressed) # Remember to pass the definition/method, not the return value!
+        self.input = self.findChild(QtWidgets.QLineEdit, 'tempRef')
+        self.show()
 
-msg = serialCom.readDataFromSerial()
+    def redefinirButtonPressed(self):
+        # This is executed when the button is pressed
+        print('redefinirButtonPressed'+' TempRef: '+self.input.text())
 
-data = serialCom.dataParse(msg)
+app = QtWidgets.QApplication(sys.argv)
+window = Ui()
+app.exec_()
 
-print (data)
+# print(serialCom.getSerialPorts())
 
-print (data['PI'][0])
+# serialCom.initSerialCom('COM3')
+
+# msg = serialCom.readDataFromSerial()
+
+# data = serialCom.dataParse(msg)
+
+# print (data)
+
+# print (data['PI'][0])
