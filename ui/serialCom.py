@@ -5,6 +5,16 @@ import re
 expressoesRegulares = list()
 portaSerial = 0
 
+# TS:   Temperatura configurada em °C
+# TR:   Temperatura real no momento da leitura em °C
+# HM:   Umidade lida em %
+# FAN:  Velocidade do FAN em %
+# ALM1: Alarme 01 em HH:MM:SS
+# ALM1: Alarme 02 em HH:MM:SS
+# RTC:  Horário do RTC em HH:MM:SS
+# PI:   Ganhos do controlador PI [Kp:Ki] (para debug)
+
+
 regexList = [
     r'>(TS):(\d{1,2}.\d{1,2})[\n\r]*$',
     r'>(TR):(\d{1,2}.\d{1,2})[\n\r]*$',
