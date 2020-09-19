@@ -3,34 +3,63 @@ import serial.tools.list_ports
 import re
 
 expressoesRegulares = list()
+portaSerial = 0
 
 regexList = [
-    r'>(TS):(\d{1,2}.\d{1})',
-    r'>(TR):(\d{1,2}.\d{1})',
-    r'>(HM):(\d{1,2}.\d{1})',
-    r'>(FAN):(\d{1,2})',    
-    r'>(ALM1):(\d{1,2}:\d{1,2}:\d{1,2})',     
-    r'>(ALM2):(\d{1,2}:\d{1,2}:\d{1,2})',     
-    r'>(RTC):(\d{1,2}:\d{1,2}:\d{1,2})',
-    r'>(PI):(\d{1,3}.{1,2}):(\d{1,3}.{1,2})'
+    r'>(TS):(\d{1,2}.\d{1,2})[\n\r]*$',
+    r'>(TR):(\d{1,2}.\d{1,2})[\n\r]*$',
+    r'>(HM):(\d{1,2}.\d{1,2})[\n\r]*$',
+    r'>(FAN):(\d{1,2})[\n\r]*$',    
+    r'>(ALM1):(\d{1,2}:\d{1,2}:\d{1,2})[\n\r]*$',
+    r'>(ALM2):(\d{1,2}:\d{1,2}:\d{1,2})[\n\r]*$',     
+    r'>(RTC):(\d{1,2}:\d{1,2}:\d{1,2})[\n\r]*$',
+    r'>(PI):(\d{1,3}.{1,2}):(\d{1,3}.{1,2})[\n\r]*$'
 ]
 
-def getSerialPorts() :
+
+
+def getSerialPorts () :
     ports = [p.device for p in serial.tools.list_ports.comports()]
     return ports
 
-def initSerialCom () :
-    # Generate Regex List
+
+
+def initSerialCom (serialDevice) :
+    global portaSerial, expressoesRegulares
+
+    portaSerial = serial.Serial(serialDevice, 9600, timeout=3)
     for rgx in regexList:
         expressoesRegulares.append(re.compile(rgx))
 
 
-def dataParse(msg):
-    msgList = msg.split()
+
+def closeSerialCom (serialDevice) :
+    global portaSerial 
+
+    portaSerial.close()
+
+
+
+def readDataFromSerial () :
+    rectMsg = list()
+
+    portaSerial.write(b's')
+    portaSerial.flushInput()
+    for _ in range(len(expressoesRegulares)) :
+        try:
+            rectMsg.append( portaSerial.readline().decode() )
+        except Exception as err:
+            print (err)
+            return 0
+    return rectMsg
+
+
+
+def dataParse (msgList) :
     checkedVals = dict()
 
     if len(msgList) != len(expressoesRegulares):
-        return -1
+        return 0
     
     for i in range(len(msgList)):
         reSearch = expressoesRegulares[i].search(msgList[i])
@@ -40,6 +69,6 @@ def dataParse(msg):
             else :
                 checkedVals[reSearch.group(1)] = reSearch.group(2)
         else :
-            return -1
+            return 0
     
     return checkedVals
