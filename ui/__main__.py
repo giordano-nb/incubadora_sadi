@@ -1,5 +1,6 @@
 import serialCom
 
+
 print(serialCom.getSerialPorts())
 
 # TS:   Temperatura configurada em °C
@@ -22,3 +23,10 @@ msgSample = '''
 >PI:2.3:5.1\n
 '''
 
+serialCom.initSerialCom()
+
+data = serialCom.dataParse(msgSample)
+
+print (data)
+
+print (data['PI'][0])
