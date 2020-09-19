@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>491</width>
-    <height>181</height>
+    <width>500</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>491</width>
-    <height>181</height>
+    <width>500</width>
+    <height>200</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>491</width>
-    <height>181</height>
+    <width>500</width>
+    <height>200</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -41,14 +41,14 @@
      <x>10</x>
      <y>10</y>
      <width>471</width>
-     <height>151</height>
+     <height>181</height>
     </rect>
    </property>
    <property name="tabPosition">
     <enum>QTabWidget::North</enum>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -222,7 +222,7 @@
         </property>
        </spacer>
       </item>
-      <item row="4" column="4">
+      <item row="3" column="4">
        <spacer name="horizontalSpacer_4">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -248,38 +248,14 @@
        <x>7</x>
        <y>8</y>
        <width>441</width>
-       <height>74</height>
+       <height>100</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="2">
-       <widget class="QTimeEdit" name="periodoAlerta">
-        <property name="dateTime">
-         <datetime>
-          <hour>8</hour>
-          <minute>0</minute>
-          <second>0</second>
-          <year>2000</year>
-          <month>1</month>
-          <day>1</day>
-         </datetime>
-        </property>
-        <property name="displayFormat">
-         <string>HH:mm:ss</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_9">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Velocidade do Ventilador (%)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Temperatura de Referência (°C)</string>
+         <string>Período de Alerta (hh:mm:ss)</string>
         </property>
        </widget>
       </item>
@@ -299,19 +275,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>200</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="2">
        <widget class="QDoubleSpinBox" name="fanSpeed">
         <property name="maximum">
@@ -322,10 +285,64 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_10">
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>150</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>Período de Alerta (hh:mm:ss)</string>
+         <string>Velocidade do Ventilador (%)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Temperatura de Referência (°C)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QTimeEdit" name="periodoAlerta">
+        <property name="dateTime">
+         <datetime>
+          <hour>8</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </datetime>
+        </property>
+        <property name="displayFormat">
+         <string>HH:mm:ss</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QComboBox" name="serialPort">
+        <property name="currentText">
+         <string/>
+        </property>
+        <property name="modelColumn">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>Porta Serial</string>
         </property>
        </widget>
       </item>
@@ -334,21 +351,28 @@
     <widget class="QWidget" name="formLayoutWidget_3">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>100</y>
-       <width>158</width>
+       <x>210</x>
+       <y>120</y>
+       <width>239</width>
        <height>25</height>
       </rect>
      </property>
-     <layout class="QFormLayout" name="formLayout_4">
-      <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="connectarButton">
+        <property name="text">
+         <string>Conectar</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="confirmar">
         <property name="text">
          <string>Confirmar</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
+      <item>
        <widget class="QPushButton" name="redefinir">
         <property name="text">
          <string>Redefinir</string>
@@ -356,6 +380,19 @@
        </widget>
       </item>
      </layout>
+    </widget>
+    <widget class="QCheckBox" name="rtcUpdate">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>201</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Atualizar horário do RTC</string>
+     </property>
     </widget>
    </widget>
   </widget>

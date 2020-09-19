@@ -37,33 +37,40 @@ def getSerialPorts () :
 def initSerialCom (serialDevice) :
     global portaSerial, expressoesRegulares
 
-    portaSerial = serial.Serial(serialDevice, 9600, timeout=3)
+    portaSerial = serial.Serial(serialDevice, 9600, timeout=0.5)
+    
     for rgx in regexList:
         expressoesRegulares.append(re.compile(rgx))
 
 
 
-def closeSerialCom (serialDevice) :
+def closeSerialCom () :
     global portaSerial 
-
-    portaSerial.close()
+    try:
+        portaSerial.flush()
+        portaSerial.flushInput()
+        portaSerial.flushOutput()
+        portaSerial.close()
+    except:
+        pass
 
 
 
 def readDataFromSerial () :
     rectMsg = list()
-
-    portaSerial.write(b's')
-    portaSerial.flushInput()
-    for _ in range(len(expressoesRegulares)) :
-        try:
+    try:
+        portaSerial.write(b's')
+        portaSerial.flushInput()
+        for _ in range(len(expressoesRegulares)) :
             rectMsg.append( portaSerial.readline().decode() )
-        except Exception as err:
-            print (err)
-            return 0
+    except Exception as err:
+        print (err)
+        return 0
     return rectMsg
 
-
+def sendDataToSerial (data) :
+    portaSerial.flushOutput()
+    portaSerial.write((data).encode())
 
 def dataParse (msgList) :
     checkedVals = dict()
