@@ -35,6 +35,9 @@
    <iconset>
     <normaloff>icon.png</normaloff>icon.png</iconset>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
@@ -261,6 +264,15 @@
       </item>
       <item row="0" column="2">
        <widget class="QDoubleSpinBox" name="tempRef">
+        <property name="statusTip">
+         <string/>
+        </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhFormattedNumbersOnly</set>
+        </property>
         <property name="minimum">
          <double>30.000000000000000</double>
         </property>
@@ -271,12 +283,18 @@
          <double>0.500000000000000</double>
         </property>
         <property name="value">
-         <double>37.500000000000000</double>
+         <double>37.000000000000000</double>
         </property>
        </widget>
       </item>
       <item row="1" column="2">
        <widget class="QDoubleSpinBox" name="fanSpeed">
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
+        <property name="inputMethodHints">
+         <set>Qt::ImhFormattedNumbersOnly</set>
+        </property>
         <property name="maximum">
          <double>100.000000000000000</double>
         </property>

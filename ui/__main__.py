@@ -56,17 +56,24 @@ class Ui(QtWidgets.QMainWindow):
 
 
     def confirmarButtonPressed(self):
+            
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Information)
+        
+        if not self.configuredSerial :
+            msg.setWindowTitle("Comando Inválido")
+            msg.setText("Conecte-se primeiro a uma porta serial.")
+            msg.exec_()
+            return
+
         msg.setWindowTitle("Valores digitados")
         
         RTC = datetime.now().strftime("%H:%M:%S") if self.rtcUpdate.checkState() else 'no'
-
-        strToUpdate = '>TS:{}\n>FAN:{}\n>ALM1:{}\n>RTC:{}\n>PI:{}:{}\n'.format(self.tempRefTextBox.text(), 
+        # >TS:{} FAN:{} ALM:{} RTC:{}
+        strToUpdate = '{} {} {} {}\n'.format(self.tempRefTextBox.text(), 
                 self.fanSpeedTextBox.text(), 
                 self.periodoAlertaTimeEdit.text(), 
-                RTC,
-                2.5, 2.4
+                RTC
             )
         serialCom.sendDataToSerial(strToUpdate)
         msg.setText(strToUpdate)
@@ -89,7 +96,7 @@ class Ui(QtWidgets.QMainWindow):
                         self.tempRefInfo.setText(data['TS'])
                         self.FanSpeedInfo.setText(data['FAN'])
                         self.umidadeInfo.setText(data['HM'])
-                        self.periodoAlertaInfo.setTime(QTime.fromString(data['ALM1']))
+                        self.periodoAlertaInfo.setTime(QTime.fromString(data['ALM']))
                         self.rtcTime.setTime(QTime.fromString(data['RTC']))
             except Exception as err:
                 print(err)
