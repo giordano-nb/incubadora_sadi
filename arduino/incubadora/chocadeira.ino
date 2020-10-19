@@ -135,7 +135,7 @@ void loop() {
     hum = dht.readHumidity();
     temp= dht.readTemperature();
     DateTime tempoRTC = rtc.now();
-    sprintf (buffer_v, "T%f H%f %d:%d:%d",tempo,hum,tempoRTC.hour(),tempoRTC.minute(),tempoRTC.second());                             
+    sprintf (buffer_v, "T%f H%f %d:%d:%d",temp,hum,tempoRTC.hour(),tempoRTC.minute(),tempoRTC.second());                             
     Serial.println(buffer_v);
       
     if(alm_time==0){ 
